@@ -1,0 +1,25 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploying application
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ubuntu
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          cd ~/devops-project || git clone https://github.com/fxyizvc/devops-project.git ~/devops-project
+          cd ~/devops-project
+          git pull origin main
+          sudo docker build -t devops-portfolio .
+          sudo docker stop $(sudo docker ps -q) || true
+          sudo docker run -d -p 80:80 devops-portfolio

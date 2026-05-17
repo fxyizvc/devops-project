@@ -1,0 +1,9 @@
+# Ignore Terraform downloads
+.terraform/
+
+# Ignore Terraform state files (these can contain sensitive cloud data)
+*.tfstate
+*.tfstate.backup
+
+# Ignore SSH Keys (SECURITY CRITICAL)
+*.pem
