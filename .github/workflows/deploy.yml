@@ -22,5 +22,7 @@ jobs:
           git pull origin main
           sudo apt update -y
           sudo apt install docker-compose -y
+          sudo docker stop $(sudo docker ps -aq) || true
+          sudo docker rm $(sudo docker ps -aq) || true
           sudo docker compose down || true
           sudo docker compose up -d --build
