@@ -20,6 +20,7 @@ jobs:
           cd ~/devops-project || git clone https://github.com/fxyizvc/devops-project.git ~/devops-project
           cd ~/devops-project
           git pull origin main
-          sudo docker build -t devops-portfolio .
-          sudo docker stop $(sudo docker ps -q) || true
-          sudo docker run -d -p 80:80 devops-portfolio
+          sudo apt update -y
+          sudo apt install docker-compose -y
+          sudo docker-compose down || true
+          sudo docker-compose up -d --build
