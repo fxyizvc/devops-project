@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: devops-web
+  template:
+    metadata:
+      labels:
+        app: devops-web
+    spec:
+      containers:
+      - name: web-container
+        image: devops-portfolio:local
+        imagePullPolicy: Never  # Tells K8s to look locally, not on the internet
+        ports:
+        - containerPort: 80
